@@ -1,0 +1,22 @@
+name: Shell Comands
+
+on: [push]
+
+jobs:
+  run-shell-command:
+    runs-on: self-hosted
+    steps:
+      - name: echo a string
+        run: echo "Hello world"
+      - name: multiline script
+        run: |
+         # node -v
+         # npm -v
+          ps -ef
+          pwd
+          uname -a
+          echo "Leandro Nunes"
+          date
+          echo "teste criacao de arquivo" > arquivoteste.txt
+          cat arquivoteste.txt
+          date

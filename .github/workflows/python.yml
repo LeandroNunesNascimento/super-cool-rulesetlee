@@ -1,0 +1,34 @@
+name: Test Python Input
+on:
+  workflow_dispatch:
+    inputs:
+      myInput:
+        description: 'User Input Here'
+        required: true
+
+jobs:
+  run-python-test:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v2.3.4
+      - name: Setup Python
+        uses: actions/setup-python@v2.2.2
+        with:
+          python-version: 3.8
+      - name: Execute Test Script
+        run: |
+          ls -ltra
+          echo ${{ github.repository }}
+          echo ${{ github.event_name }}
+          echo ${{ github.job }}
+          echo ${{ github.ref_type }}
+          echo ${{ github.repository_owner }}
+          echo ${{ github.run_id }}
+          echo ${{ github.sha }}
+          echo ${{ github.WORKFLOW }}
+          
+          echo "Store: ${{ github.event.inputs.myInput }}"
+          INPUT_STORE=${{ github.event.inputs.myInput }} python3 ${{ github.action_path }}\test.py ${{ github.repository }} ${{ github.event_name }} ${{ github.job }} ${{ github.ref_type }} ${{ github.repository_owner }} ${{ github.event.inputs.myInput }}
+          ls -ltra
+          cat nested_data.json
